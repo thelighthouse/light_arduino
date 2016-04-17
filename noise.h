@@ -15,6 +15,7 @@ public:
 	void step(LEDArray *ledarray)
 	{
 		//ledarray->rotate_hue();
+		ledarray->rand_hue();
 		ledarray->blur();
 		FastLED.show();
 	}

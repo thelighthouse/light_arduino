@@ -15,6 +15,10 @@ class LEDArray
 		void rotate();
 		void rotate_hue();
 		void blur();
+		void rand_swap();
+		void rand_swapn();
+		void rand_hue();
+		void rand_huen();
 	//private:
 		long num_leds;
 		struct CRGB *leds;

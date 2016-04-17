@@ -56,6 +56,17 @@ void LEDArray::rotate_hue(){
 	
 }
 
+uint8_t blend_hues(uint8_t one, uint8_t two){
+	long diff=one-two;
+	long avg;
+	if(abs(diff)<128){
+		avg=0.5*one+0.5*two;
+	} else {
+		avg=((long) (0.5*one+0.5*two+128)) % 256;
+	}
+	
+	return (uint8_t) avg-1;
+}
 
 void LEDArray::blur(){
 	CHSV prev=CHSV(random(255),255,255);
@@ -64,12 +75,39 @@ void LEDArray::blur(){
 	int i;
 	for(i=0; i<num_leds-1; i++){
 		CHSV next=rgb2hsv_approximate(leds[i+1]);
-		leds[i]=CHSV(0.3*prev.hue+0.4*current.hue+0.3*prev.hue,255,255);
+		leds[i]=CHSV(blend_hues(current.hue,blend_hues(prev.hue,next.hue)),255,255);
 		prev=current;
 		current=next;
 	}
 	
 	next=CHSV(random(255),255,255);
-	leds[i]=CHSV(0.3*prev.hue+0.4*current.hue+0.3*prev.hue,255,255);
+	leds[i]=CHSV(blend_hues(current.hue,blend_hues(prev.hue,next.hue)),255,255);
+}
+
+
+void LEDArray::rand_swap(){
+	long pos=random(num_leds);
+	long pos2=random(num_leds);
+	CRGB tmp = leds[pos];
+	leds[pos] = leds[pos2];
+	leds[pos2] = tmp;
+}
+
+void LEDArray::rand_swapn(){
+	for(int i=0; i<100; i++){
+		rand_swap();
+	}
+}
+
+
+void LEDArray::rand_hue(){
+	long pos=random(num_leds);
+	leds[pos] = CHSV(random(255),255,255);
+}
+
+void LEDArray::rand_huen(){
+	for(int i=0; i<100; i++){
+		rand_hue();
+	}
 }
 
