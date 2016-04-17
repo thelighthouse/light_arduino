@@ -33,6 +33,9 @@ void setup() {
   FastLED.addLeds<NEOPIXEL, 4>(leds, 3*NUM_LEDS_PER_STRIP, NUM_LEDS_PER_STRIP);
   FastLED.addLeds<NEOPIXEL, 5>(leds, 4*NUM_LEDS_PER_STRIP, 158);
   
+  
+  //FastLED.addLeds<NEOPIXEL, 4>(leds, 0*NUM_LEDS_PER_STRIP, NUM_LEDS_PER_STRIP);
+  
   // set master brightness control
   FastLED.setBrightness(BRIGHTNESS);
   //fill_solid(leds,NUM_LEDS,CHSV(128,255,128));

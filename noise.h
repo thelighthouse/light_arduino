@@ -7,13 +7,14 @@ class Noise : public Animation {
 public:
 	Noise(LEDArray *ledarray)
 	{
-		ledarray->init_single();
+		ledarray->init_randbow();
 		FastLED.show();
 
 	}
 	
 	void step(LEDArray *ledarray)
 	{
+		ledarray->rotate_hue();
 		ledarray->rotate();
 		FastLED.show();
 	}

@@ -9,10 +9,12 @@ class LEDArray
 	// initialization utilities	
 		void init_noise();
 		void init_rainbow();
+		void init_randbow();
 		void init_single();
 	// animation utilities
 		void rotate();
-		
+		void rotate_hue();
+		void blur();
 	//private:
 		long num_leds;
 		struct CRGB *leds;

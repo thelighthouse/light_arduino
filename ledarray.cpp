@@ -12,6 +12,21 @@ void LEDArray::init_noise(){
 		}
 }
 
+void LEDArray::init_randbow(){
+	CHSV current=CHSV(random(255),255,255);
+	CHSV prev=CHSV(random(255),255,255);
+	CHSV first=prev;
+	int width=20;
+	int i;
+	for(i=0; i<num_leds-width; i+=width){
+		fill_gradient(leds,i,prev,i+width,current,SHORTEST_HUES);		
+		prev=current;
+		current=CHSV(random(255),255,255);
+	}
+	
+	fill_gradient(leds,i,prev,num_leds,first,SHORTEST_HUES);		
+}
+
 void LEDArray::init_rainbow(){
 	fill_gradient(leds,num_leds,CHSV(0,255,255),CHSV(1,255,255),LONGEST_HUES);
 }
@@ -28,4 +43,20 @@ void LEDArray::rotate(){
 		}
 		
 	leds[num_leds-1]=led0;
+}
+
+void LEDArray::rotate_hue(){
+	for(int i=0; i<num_leds; i++){
+			CHSV hsv=rgb2hsv_approximate(leds[i]);
+			hsv.hue=(( (int) hsv.hue)+10) % 256;
+			//hsv.hue=3;
+			leds[i] = hsv;
+		}
+		
+	
+}
+
+void LEDArray::blur(){
+	blur1d(leds,num_leds,0.1);	
+	
 }
