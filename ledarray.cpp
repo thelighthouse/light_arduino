@@ -56,7 +56,20 @@ void LEDArray::rotate_hue(){
 	
 }
 
+
 void LEDArray::blur(){
-	blur1d(leds,num_leds,0.1);	
+	CHSV prev=CHSV(random(255),255,255);
+	CHSV current=rgb2hsv_approximate(leds[0]);
+	CHSV next;
+	int i;
+	for(i=0; i<num_leds-1; i++){
+		CHSV next=rgb2hsv_approximate(leds[i+1]);
+		leds[i]=CHSV(0.3*prev.hue+0.4*current.hue+0.3*prev.hue,255,255);
+		prev=current;
+		current=next;
+	}
 	
+	next=CHSV(random(255),255,255);
+	leds[i]=CHSV(0.3*prev.hue+0.4*current.hue+0.3*prev.hue,255,255);
 }
+
